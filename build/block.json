@@ -3,10 +3,10 @@
   "apiVersion": 3,
   "name": "create-block/scrippet-block",
   "version": "0.1.0",
-  "title": "Scrippet Block",
+  "title": "Scrippet",
   "category": "widgets",
-  "icon": "smiley",
-  "description": "Example block scaffolded with Create Block tool.",
+  "icon": "video-alt",
+  "description": "Convert fountain formatted text to screenplay format.",
   "example": {},
   "supports": {
     "html": false

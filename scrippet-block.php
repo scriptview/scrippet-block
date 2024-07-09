@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name:       Scrippet Block
- * Description:       Example block scaffolded with Create Block tool.
+ * Description:       WordPress plugin to display <a href="https://fountain.io/">Fountain</a> formatted screenplay snippets.
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Version:           0.1.0
- * Author:            The WordPress Contributors
- * License:           GPL-2.0-or-later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Author:            Pierre Carion
+ * License:           GPL-3.0
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       scrippet-block
  *
  * @package CreateBlock

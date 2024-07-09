@@ -1,12 +1,15 @@
 {
 	"name": "scrippet-block",
 	"version": "0.1.0",
-	"description": "Example block scaffolded with Create Block tool.",
-	"author": "The WordPress Contributors",
-	"license": "GPL-2.0-or-later",
+	"description": "scrippet-block is a WordPress plugin that adds a block to the Gutenberg editor to display Fountain formatted screenplay snippets.",
+	"author": "Pierre Carion",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": "https://github.com/scriptview/scrippet-block/issues"
+	},
 	"main": "build/index.js",
 	"scripts": {
-		"build": "wp-scripts build --webpack-copy-php",
+		"build": "rm build/* && wp-scripts build --webpack-copy-php",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
