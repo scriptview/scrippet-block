@@ -1,1 +1,1 @@
-console.log("Hello World! (from create-block-scrippet-block block)");
+console.log("Hello World! (from scriptview-scrippet-block block)");

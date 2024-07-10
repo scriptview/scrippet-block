@@ -3,7 +3,7 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from "@wordpress/i18n";
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { PlainText, useBlockProps } from "@wordpress/block-editor";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -19,7 +19,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
-import './editor.scss';
+import "./editor.scss";
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -30,12 +30,23 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit() {
+	const blockProps = useBlockProps();
+	const content = "Hello with content";
+
 	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Scrippet Block – hello from the editor!',
-				'scrippet-block'
-			) }
-		</p>
+		<div {...blockProps}>
+			<>
+				<pre className="mermaid-editor wp-block-code">
+					<PlainText
+						onChange={(newContent) => {
+							console.log("newContent", newContent);
+						}}
+						value={content}
+					/>
+				</pre>
+				<hr />
+			</>
+			{__("scrippet – hello from the editor!", "scrippet-block")}
+		</div>
 	);
 }

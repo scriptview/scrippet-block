@@ -3,8 +3,8 @@ Contributors:      Pierre Carion
 Tags:              block
 Tested up to:      6.1
 Stable tag:        0.1.0
-License: 					 GPLv3
-License URI: 			 https://www.gnu.org/licenses/gpl-3.0.html
+License:           GPLv3
+License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
 Scrippet-block is a WordPress plugin that adds a block to the Gutenberg editor to display Fountain formatted screenplay snippets.
 

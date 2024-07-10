@@ -21,5 +21,5 @@
  */
 
 /* eslint-disable no-console */
-console.log( 'Hello World! (from create-block-scrippet-block block)' );
+console.log( 'Hello World! (from scriptview-scrippet-block block)' );
 /* eslint-enable no-console */

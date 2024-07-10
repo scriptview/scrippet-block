@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Scrippet Block
+ * Plugin Name:       scrippet
  * Description:       WordPress plugin to display <a href="https://fountain.io/">Fountain</a> formatted screenplay snippets.
  * Requires at least: 6.1
  * Requires PHP:      7.0
@@ -10,7 +10,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       scrippet-block
  *
- * @package CreateBlock
+ * @package Scriptview
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function create_block_scrippet_block_block_init() {
+function scriptview_scrippet_block_block_init() {
 	register_block_type( __DIR__ . '/build' );
 }
-add_action( 'init', 'create_block_scrippet_block_block_init' );
+add_action( 'init', 'scriptview_scrippet_block_block_init' );

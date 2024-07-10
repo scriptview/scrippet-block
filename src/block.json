@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "create-block/scrippet-block",
+	"name": "scriptview/scrippet-block",
 	"version": "0.1.0",
-	"title": "Scrippet",
+	"title": "scrippet",
 	"category": "widgets",
 	"icon": "video-alt",
 	"description": "Convert fountain formatted text to screenplay format.",
