@@ -4,5 +4,5 @@
  */
 ?>
 <p <?php echo get_block_wrapper_attributes(); ?>>
-	<?php esc_html_e( 'scrippet – hello from a dynamic block!', 'scrippet-block' ); ?>
+	<?php esc_html_e( $attributes['content'] ); ?>
 </p>
