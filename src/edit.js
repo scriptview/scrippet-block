@@ -29,24 +29,27 @@ import "./editor.scss";
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit({ attributes, setAttributes, isSelected }) {
+	const { content = "", generatedHtml = "" } = attributes;
 	const blockProps = useBlockProps();
-	const content = "Hello with content";
 
 	return (
 		<div {...blockProps}>
-			<>
-				<pre className="mermaid-editor wp-block-code">
-					<PlainText
-						onChange={(newContent) => {
-							console.log("newContent", newContent);
-						}}
-						value={content}
-					/>
-				</pre>
-				<hr />
-			</>
-			{__("scrippet – hello from the editor!", "scrippet-block")}
+			{isSelected && (
+				<>
+					<pre className="mermaid-editor wp-block-code">
+						<PlainText
+							onChange={(newContent) => {
+								console.log("newContent", newContent);
+								setAttributes({ content: newContent });
+							}}
+							value={content}
+						/>
+					</pre>
+					<hr />
+				</>
+			)}
+			{__(`scrippet – [${attributes.content}]`, "scrippet-block")}
 		</div>
 	);
 }

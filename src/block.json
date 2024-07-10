@@ -11,6 +11,16 @@
 	"supports": {
 		"html": false
 	},
+	"attributes": {
+		"content": {
+			"type": "string",
+			"source": "text"
+		},
+		"generatedHtml": {
+			"type": "string",
+			"source": "text"
+		}
+	},
 	"textdomain": "scrippet-block",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
