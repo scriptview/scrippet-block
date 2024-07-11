@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ES2022",
+		"jsx": "react-jsx",
+		"moduleResolution": "node",
+		// Search under node_modules for non-relative imports.
+		"allowJs": true,
+		// Process & infer types from .js files.
+		"noEmit": true,
+		// Don't emit; allow Babel to transform files.
+		"outDir": "build",
+		"baseUrl": "src",
+		"allowSyntheticDefaultImports": true
+	},
+	"include": ["./src/**/*"],
+	"exclude": ["coverage", "docs"]
+}
