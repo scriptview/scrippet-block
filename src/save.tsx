@@ -1,6 +1,6 @@
 import { useBlockProps } from "@wordpress/block-editor";
 
-import { FountainBlock } from "./fountain-block";
+import { processFountain } from "./processFountain";
 
 export default function Save(props) {
 	const { fountainSource } = props.attributes;
@@ -12,7 +12,7 @@ export default function Save(props) {
 	return (
 		<div {...blockProps}>
 			<pre className="scrippet-fountain-source">{fountainSource}</pre>
-			{/* <FountainBlock text={fountainSource} /> */}
+			<p>{processFountain(fountainSource)}</p>
 		</div>
 	);
 }

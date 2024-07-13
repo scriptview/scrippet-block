@@ -10,9 +10,8 @@ export function FountainBlock({ text }: FountainBlockProps) {
 	const [fountainHtml, setFountainHtml] = useState<string>("");
 	useEffect(() => {
 		if (text) {
-			processFountain(text).then((html) => {
-				setFountainHtml(html);
-			});
+			const result = processFountain(text);
+			setFountainHtml(result);
 		}
 	}, [text]);
 

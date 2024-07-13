@@ -5,7 +5,7 @@
  */
 import { __ } from "@wordpress/i18n";
 
-import { useEffect } from "@wordpress/element";
+import { useEffect, useState } from "@wordpress/element";
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -25,8 +25,6 @@ import "./editor.scss";
 
 import { processFountain } from "./processFountain";
 
-import { FountainBlock } from "./fountain-block";
-
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -37,9 +35,17 @@ import { FountainBlock } from "./fountain-block";
  */
 export default function Edit({ attributes, setAttributes, isSelected }) {
 	const { fountainSource = "" } = attributes;
+	var [preview, setPreview] = useState("");
+
 	const blockProps = useBlockProps();
 
-	console.log(`@@ edit> fountainSource: ${fountainSource}`);
+	useEffect(
+		function () {
+			const result = processFountain(fountainSource);
+			setPreview(result);
+		},
+		[fountainSource],
+	);
 
 	return (
 		<div {...blockProps}>
@@ -56,7 +62,7 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 					<hr />
 				</>
 			)}
-			<FountainBlock text={fountainSource} />
+			<div>{preview}</div>
 		</div>
 	);
 }
