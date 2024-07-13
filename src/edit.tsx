@@ -5,7 +5,7 @@
  */
 import { __ } from "@wordpress/i18n";
 
-import { useEffect } from "@wordpress/element";
+import { useEffect, useState } from "@wordpress/element";
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -34,37 +34,42 @@ import { processFountain } from "./processFountain";
  * @return {Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes, isSelected }) {
-	const { fountainSource = "", generatedHtml = "" } = attributes;
+	const { fountainSource = "" } = attributes;
+	var [preview, setPreview] = useState(attributes.fountainHtml || "");
+
 	const blockProps = useBlockProps();
 
-	console.log(
-		`@@ fountainSource: ${fountainSource}, generatedHtml: ${generatedHtml}`,
-	);
+	useEffect(function () {
+		console.log(`@@ edit> useEffect: ${fountainSource}`);
+		const initialText = processFountain(fountainSource);
+		setAttributes({ fountainHtml: initialText });
+		setPreview(initialText);
+	}, []);
 
-	useEffect(() => {
-		if (fountainSource) {
-			processFountain(fountainSource).then((html) => {
-				setAttributes({ generatedHtml: html });
-			});
-		}
-	}, [fountainSource, setAttributes]);
+	function onChangeContent(newContent: string) {
+		var newFormattedContent = processFountain(newContent);
+
+		setAttributes({
+			fountainSource: newContent,
+			fountainHtml: newFormattedContent,
+		});
+		setPreview(newFormattedContent);
+	}
 
 	return (
 		<div {...blockProps}>
 			{isSelected && (
 				<>
 					<pre className="mermaid-editor wp-block-code">
-						<PlainText
-							onChange={(newContent) => {
-								setAttributes({ fountainSource: newContent });
-							}}
-							value={fountainSource}
-						/>
+						<PlainText onChange={onChangeContent} value={fountainSource} />
 					</pre>
 					<hr />
 				</>
 			)}
-			{__(`${generatedHtml}`, "scrippet-block")}
+			<p
+				className="scrippet-fountain-html"
+				dangerouslySetInnerHTML={{ __html: preview }}
+			/>
 		</div>
 	);
 }
