@@ -16,6 +16,11 @@
 			"type": "string",
 			"source": "text",
 			"selector": "pre.scrippet-fountain-source"
+		},
+		"fountainHtml": {
+			"type": "string",
+			"source": "html",
+			"selector": "p.scrippet-fountain-html"
 		}
 	},
 	"textdomain": "scrippet-block",
