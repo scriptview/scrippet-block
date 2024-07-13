@@ -14,11 +14,8 @@
   "attributes": {
     "fountainSource": {
       "type": "string",
-      "source": "text"
-    },
-    "generatedHtml": {
-      "type": "string",
-      "source": "text"
+      "source": "text",
+      "selector": "pre.scrippet-fountain-source"
     }
   },
   "textdomain": "scrippet-block",

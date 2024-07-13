@@ -25,6 +25,8 @@ import "./editor.scss";
 
 import { processFountain } from "./processFountain";
 
+import { FountainBlock } from "./fountain-block";
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -34,20 +36,10 @@ import { processFountain } from "./processFountain";
  * @return {Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes, isSelected }) {
-	const { fountainSource = "", generatedHtml = "" } = attributes;
+	const { fountainSource = "" } = attributes;
 	const blockProps = useBlockProps();
 
-	console.log(
-		`@@ fountainSource: ${fountainSource}, generatedHtml: ${generatedHtml}`,
-	);
-
-	useEffect(() => {
-		if (fountainSource) {
-			processFountain(fountainSource).then((html) => {
-				setAttributes({ generatedHtml: html });
-			});
-		}
-	}, [fountainSource, setAttributes]);
+	console.log(`@@ edit> fountainSource: ${fountainSource}`);
 
 	return (
 		<div {...blockProps}>
@@ -64,7 +56,7 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 					<hr />
 				</>
 			)}
-			{__(`${generatedHtml}`, "scrippet-block")}
+			<FountainBlock text={fountainSource} />
 		</div>
 	);
 }
