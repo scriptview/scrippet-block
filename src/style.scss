@@ -3,10 +3,102 @@
  * and in the editor.
  *
  * Replace them with your own styles or remove the file completely.
- */
+ *
+ * imported css from scrippet.css and adjusted to work with the block
+ * renamed .scrippet class to .scrippet-fountain-html to avoid conflicts with existing css
+ *
+ * @override http://johnaugust.com/wp-content/plugins/wp-scrippets/scrippets.css?v2.0
+ *
+ * Scrippet.css
+ * Scrippet is a CSS template designed for including short sections of screenplay-formatted material in blog posts.
+ * Originally developed by John August - johnaugust.com
+ * Last modified 8/21/08
+**/
 
 .wp-block-scriptview-scrippet-block {
-	background-color: #21759b;
-	color: #fff;
 	padding: 2px;
+}
+
+div.scrippet-fountain-html {
+	width: auto;
+	background: #fffffc;
+	color: #000000;
+	border: 1px solid #d2d2d2;
+	padding: 5px 4% 15px 4%;
+	clear: both;
+	margin: 2.5em auto 2.5em auto;
+	max-width: 80%;
+}
+
+.scrippet-fountain-html p {
+	font: 14px/16px "courier-prime", courier, monospace !important;
+	text-align: left !important;
+	letter-spacing: 0 !important;
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+}
+
+.scrippet-fountain-html p i,
+.scrippet-fountain-html p em {
+	font: 14px/16px "courier-prime", courier, monospace !important;
+	font-style: italic !important;
+}
+
+.scrippet-fountain-html p b,
+.scrippet-fountain-html p strong {
+	font: 14px/16px "courier-prime", courier, monospace !important;
+	font-weight: 700 !important;
+}
+
+.scrippet-fountain-html p b i,
+.scrippet-fountain-html p strong em {
+	font: 14px/16px "courier-prime", courier, monospace !important;
+	font-weight: 700 !important;
+	font-style: italic !important;
+}
+
+.sceneheader,
+.action,
+.character {
+	padding-top: 1.5ex !important;
+}
+
+.action {
+	padding-right: 5% !important;
+	font-size: 12px !important;
+	line-height: 14px !important;
+}
+
+.character {
+	padding-left: 40% !important;
+}
+
+.dialogue {
+	padding-left: 20% !important;
+	padding-right: 20% !important;
+}
+
+.parenthetical {
+	padding-left: 32% !important;
+	padding-right: 30% !important;
+}
+
+.dialogue+.parenthetical {
+	padding-bottom: 0 !important;
+}
+
+.transition {
+	padding-top: 3ex !important;
+	padding-left: 65% !important;
+	padding-bottom: 1.5ex !important;
+}
+
+.comment .scrippet {
+	// xleft: 50%;
+	// xmargin-top: 10px;
+	// xmargin-bottom: 30px;
+	// xwidth: 360px;
+	// xmargin-left: -186px;
+	width: auto;
+	clear: none;
 }

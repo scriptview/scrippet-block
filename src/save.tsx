@@ -13,7 +13,7 @@ export default function Save(props) {
 			<pre className="scrippet-fountain-source" style={{ display: "none" }}>
 				{fountainSource}
 			</pre>
-			<p
+			<div
 				className="scrippet-fountain-html"
 				dangerouslySetInnerHTML={{ __html: fountainHtml }}
 			/>

@@ -40,7 +40,6 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 	const blockProps = useBlockProps();
 
 	useEffect(function () {
-		console.log(`@@ edit> useEffect: ${fountainSource}`);
 		const initialText = processFountain(fountainSource);
 		setAttributes({ fountainHtml: initialText });
 		setPreview(initialText);
@@ -66,7 +65,7 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 					<hr />
 				</>
 			)}
-			<p
+			<div
 				className="scrippet-fountain-html"
 				dangerouslySetInnerHTML={{ __html: preview }}
 			/>
