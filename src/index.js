@@ -19,6 +19,7 @@ import "./style.scss";
  */
 import Edit from "./edit";
 import Save from "./save";
+import { svgIcon } from "./components/icons";
 
 import metadata from "./block.json";
 
@@ -32,6 +33,8 @@ registerBlockType(metadata.name, {
 	 * @see ./edit.js
 	 */
 	edit: Edit,
+
+	icon: svgIcon,
 
 	/**
 	 * @see ./save.js
