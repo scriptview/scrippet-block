@@ -19,25 +19,53 @@ import { EmphasisPart, parseEmphasis } from "./jouvence/parse.emphasis";
 // ***bold italics***
 // _underline_
 //
+function parsePartsChildren(
+	text: string,
+	parts: EmphasisPart[],
+): React.ReactNode[] {
+	const children: React.ReactNode[] = [];
+	if (text.length > 0) {
+		children.push(text);
+	}
+	parts.forEach((part) => {
+		children.push(...parseEmphasisPart(part));
+	});
+	return children;
+}
+
 function parseEmphasisPart(part: EmphasisPart): React.ReactNode[] {
+	const children: React.ReactNode[] = parsePartsChildren(part.text, part.parts);
 	switch (part.type) {
 		case ".":
-			return [part.text];
+			return parsePartsChildren(part.text, part.parts);
 		case "_":
-			return [createElement("u", {}, part.text)];
+			return [
+				createElement("u", {}, parsePartsChildren(part.text, part.parts)),
+			];
 		case "*":
-			return [createElement("em", {}, part.text)];
+			return [
+				createElement("em", {}, parsePartsChildren(part.text, part.parts)),
+			];
 		case "**":
-			return [createElement("strong", {}, part.text)];
+			return [
+				createElement("strong", {}, parsePartsChildren(part.text, part.parts)),
+			];
 		case "***":
-			return [createElement("strong", {}, createElement("em", {}, part.text))];
+			return [
+				createElement(
+					"strong",
+					{},
+					createElement("em", {}, parsePartsChildren(part.text, part.parts)),
+				),
+			];
 		default:
-			return [part.text];
+			return parsePartsChildren(part.text, part.parts);
 	}
 }
+
 function formatText(text: string): React.ReactNode[] {
-	const parts = parseEmphasis(text);
-	return [];
+	const part = parseEmphasis(text);
+	return parseEmphasisPart(part);
 }
 
 export function mkProcessing() {
@@ -91,7 +119,9 @@ export function mkProcessing() {
 			options: NotificationOptions,
 		) {
 			addSXX("action", text, blocks, options);
-			children.push(createElement("p", { className: "action" }, text));
+			children.push(
+				createElement("p", { className: "action" }, formatText(text)),
+			);
 		},
 		pageBreak: function () {
 			add("pageBreak");
@@ -120,7 +150,9 @@ export function mkProcessing() {
 		},
 		dialogue: function (text: string) {
 			addS("dialogue", text);
-			children.push(createElement("p", { className: "dialogue" }, text));
+			children.push(
+				createElement("p", { className: "dialogue" }, formatText(text)),
+			);
 		},
 		transition: function (text: string) {
 			addS("transition", text);
