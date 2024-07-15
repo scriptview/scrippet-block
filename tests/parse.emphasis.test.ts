@@ -469,5 +469,70 @@ describe("parse emphasis", function () {
 				],
 			});
 		});
+
+		it("'should parse edge cases (4)", function () {
+			const part = parseEmphasis(
+				"He dialed *69 and then *23, and then hung up.",
+			);
+			expect(part).toEqual({
+				type: ".",
+				text: "",
+				parts: [
+					{
+						type: ".",
+						text: "He dialed *69 and then *23, and then hung up.",
+						parts: [],
+					},
+				],
+			});
+		});
+
+		it("'should parse edge cases (5)", function () {
+			const part = parseEmphasis(
+				"He dialed *69 and then 23*, and then hung up.",
+			);
+			expect(part).toEqual({
+				type: ".",
+				text: "",
+				parts: [
+					{
+						type: ".",
+						text: "He dialed ",
+						parts: [],
+					},
+					{
+						type: "*",
+						text: "",
+						parts: [
+							{
+								type: ".",
+								text: "69 and then 23",
+								parts: [],
+							},
+						],
+					},
+					{
+						type: ".",
+						text: ", and then hung up.",
+						parts: [],
+					},
+				],
+			});
+		});
+
+		it("'should parse edge cases (6)", function () {
+			const part = parseEmphasis("He dialed *69 and then");
+			expect(part).toEqual({
+				type: ".",
+				text: "",
+				parts: [
+					{
+						type: ".",
+						text: "He dialed *69 and then",
+						parts: [],
+					},
+				],
+			});
+		});
 	});
 });

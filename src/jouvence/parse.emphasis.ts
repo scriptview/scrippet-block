@@ -21,7 +21,6 @@ function parsePart(line: string, index0: number, part: EmphasisPart): number {
 	let buffer = "";
 	const delim = part.type;
 	const hasDelim = delim[0] !== ".";
-	// const result;
 
 	function append(c: string) {
 		buffer = buffer + c;
@@ -56,9 +55,10 @@ function parsePart(line: string, index0: number, part: EmphasisPart): number {
 		return result;
 	}
 
-	var i;
+	let i: number;
 	for (i = index0; i < length; i++) {
-		var c = line.charAt(i);
+		const c = line.charAt(i);
+		const previousIsSpace = i > 0 ? line.charAt(i - 1) === " " : false;
 
 		if (c === "\\") {
 			append(next(i, 1));
@@ -67,8 +67,10 @@ function parsePart(line: string, index0: number, part: EmphasisPart): number {
 		}
 
 		// check if we have a matching closing delimiter
-		if (hasDelim && c === delim[0]) {
+		// a closing delimiter is a delimiter that is not preceded by a space
+		if (hasDelim && c === delim[0] && !previousIsSpace) {
 			var match = true;
+			// check all the chars of the delimiter
 			for (var delta = 0; delta < delim.length; delta++) {
 				if (next(i, delta) !== delim[delta]) {
 					match = false;
