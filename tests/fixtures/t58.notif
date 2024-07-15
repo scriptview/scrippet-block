@@ -1,0 +1,24 @@
+startOfDocument
+sceneHeading||INT. BASEMENT||1
+action||This is the action||[]||{}
+dualDialogueStart
+dialogueStart
+character||BRICK||{"isDualDialogue":false}
+dialogue||Screw my retirement.
+dialogueEnd
+dialogueStart
+character||STEEL||{"isDualDialogue":true}
+dialogue||Screw your retirement.
+dialogueEnd
+dualDialogueEnd
+dualDialogueStart
+dialogueStart
+character||ANOTHER GUY||{"isDualDialogue":false}
+dialogue||Whatever
+dialogueEnd
+dialogueStart
+character||OTHER GUY||{"isDualDialogue":true}
+dialogue||Agreed!
+dialogueEnd
+dualDialogueEnd
+endOfDocument

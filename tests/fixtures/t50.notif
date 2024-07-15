@@ -1,0 +1,12 @@
+startOfDocument
+dualDialogueStart
+dialogueStart
+character||BRICK||{"isDualDialogue":false}
+dialogue||Screw my retirement.
+dialogueEnd
+dialogueStart
+character||STEEL||{"isDualDialogue":true}
+dialogue||Screw your retirement.
+dialogueEnd
+dualDialogueEnd
+endOfDocument

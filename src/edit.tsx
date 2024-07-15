@@ -68,7 +68,7 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 			<div
 				className="scrippet-fountain-html"
 				dangerouslySetInnerHTML={{ __html: preview }}
-			/>
+			></div>
 		</div>
 	);
 }

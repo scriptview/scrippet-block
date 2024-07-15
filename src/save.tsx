@@ -1,7 +1,5 @@
 import { useBlockProps } from "@wordpress/block-editor";
 
-import { processFountain } from "./processFountain";
-
 export default function Save(props) {
 	const { fountainSource, fountainHtml } = props.attributes;
 	const blockProps = useBlockProps.save({
@@ -16,7 +14,7 @@ export default function Save(props) {
 			<div
 				className="scrippet-fountain-html"
 				dangerouslySetInnerHTML={{ __html: fountainHtml }}
-			/>
+			></div>
 		</div>
 	);
 }

@@ -1,0 +1,14 @@
+startOfDocument
+dialogueStart
+character||DEALER||{"isDualDialogue":false}
+dialogue||Ten.
+dialogue||Four.
+dialogue||Dealer gets a seven.
+dialogue||
+dialogue||Hit or stand sir?
+dialogueEnd
+dialogueStart
+character||MONKEY||{"isDualDialogue":false}
+dialogue||Dude, I’m a monkey.
+dialogueEnd
+endOfDocument
