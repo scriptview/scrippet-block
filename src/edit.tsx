@@ -35,24 +35,18 @@ import { processFountain } from "./processFountain";
  */
 export default function Edit({ attributes, setAttributes, isSelected }) {
 	const { fountainSource = "" } = attributes;
-	var [preview, setPreview] = useState(attributes.fountainHtml || "");
 
 	const blockProps = useBlockProps();
 
 	useEffect(function () {
 		const initialText = processFountain(fountainSource);
 		setAttributes({ fountainHtml: initialText });
-		setPreview(initialText);
 	}, []);
 
 	function onChangeContent(newContent: string) {
-		var newFormattedContent = processFountain(newContent);
-
 		setAttributes({
 			fountainSource: newContent,
-			fountainHtml: newFormattedContent,
 		});
-		setPreview(newFormattedContent);
 	}
 
 	return (
@@ -65,10 +59,7 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 					<hr />
 				</>
 			)}
-			<div
-				className="scrippet-fountain-html"
-				dangerouslySetInnerHTML={{ __html: preview }}
-			></div>
+			{processFountain(fountainSource)}
 		</div>
 	);
 }
