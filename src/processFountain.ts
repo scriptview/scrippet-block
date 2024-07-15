@@ -7,10 +7,38 @@ import {
 	NotificationCharacterOption,
 } from "jouvence/types";
 import { parseFountain } from "./jouvence/parse";
+import { EmphasisPart, parseEmphasis } from "./jouvence/parse.emphasis";
 
 // references:
 // https://react.dev/reference/react/createElement
 // https://react.dev/reference/react/createElement#creating-an-element-without-jsx
+
+//
+// *italics*
+// **bold**
+// ***bold italics***
+// _underline_
+//
+function parseEmphasisPart(part: EmphasisPart): React.ReactNode[] {
+	switch (part.type) {
+		case ".":
+			return [part.text];
+		case "_":
+			return [createElement("u", {}, part.text)];
+		case "*":
+			return [createElement("em", {}, part.text)];
+		case "**":
+			return [createElement("strong", {}, part.text)];
+		case "***":
+			return [createElement("strong", {}, createElement("em", {}, part.text))];
+		default:
+			return [part.text];
+	}
+}
+function formatText(text: string): React.ReactNode[] {
+	const parts = parseEmphasis(text);
+	return [];
+}
 
 export function mkProcessing() {
 	const lines: string[] = [];
