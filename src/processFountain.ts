@@ -14,6 +14,7 @@ import { parseFountain } from "./jouvence/parse";
 
 export function mkProcessing() {
 	const lines: string[] = [];
+	const children: React.ReactElement[] = [];
 
 	function add(line: string) {
 		lines.push(line);
@@ -37,10 +38,6 @@ export function mkProcessing() {
 		);
 	}
 
-	function addXX(text: string, extra1: unknown, extra2: unknown) {
-		lines.push(`${text}||${JSON.stringify(extra1)}||${JSON.stringify(extra2)}`);
-	}
-
 	function addSI(text: string, p1: string, p2: number) {
 		lines.push(`${text}||${p1}||${p2}`);
 	}
@@ -56,15 +53,17 @@ export function mkProcessing() {
 		titlePage: function (metaInformation: MetaInformation) {
 			addX("titlePage", metaInformation);
 		},
-		sceneHeading: function (sceneHeading: string, lineno: number) {
-			addSI("sceneHeading", sceneHeading, lineno);
+		sceneHeading: function (text: string, lineno: number) {
+			addSI("sceneHeading", text, lineno);
+			children.push(createElement("p", { className: "sceneheader" }, text));
 		},
 		action: function (
-			action: string,
+			text: string,
 			blocks: ContextLine[],
 			options: NotificationOptions,
 		) {
-			addSXX("action", action, blocks, options);
+			addSXX("action", text, blocks, options);
+			children.push(createElement("p", { className: "action" }, text));
 		},
 		pageBreak: function () {
 			add("pageBreak");
@@ -81,20 +80,23 @@ export function mkProcessing() {
 		dialogueEnd: function () {
 			add("dialogueEnd");
 		},
-		character: function (
-			character: string,
-			option: NotificationCharacterOption,
-		) {
-			addSX("character", character, option);
+		character: function (text: string, option: NotificationCharacterOption) {
+			addSX("character", text, option);
+			children.push(createElement("p", { className: "character" }, text));
 		},
-		parenthetical: function (parenthetical: string) {
-			addS("parenthetical", parenthetical);
+		parenthetical: function (text: string) {
+			addS("parenthetical", text);
+			children.push(
+				createElement("p", { className: "parenthetical" }, `(${text})`),
+			);
 		},
-		dialogue: function (dialogue: string) {
-			addS("dialogue", dialogue);
+		dialogue: function (text: string) {
+			addS("dialogue", text);
+			children.push(createElement("p", { className: "dialogue" }, text));
 		},
-		transition: function (transition: string) {
-			addS("transition", transition);
+		transition: function (text: string) {
+			addS("transition", text);
+			children.push(createElement("p", { className: "transition" }, text));
 		},
 		section: function (section: string, level: number, extra: number) {
 			addSIX("section", section, level, extra);
@@ -115,9 +117,11 @@ export function mkProcessing() {
 			return jouvenceNotification;
 		},
 		getResult(text: string): React.ReactElement {
-			return createElement("div", { className: "scrippet-fountain-html" }, [
-				createElement("p", { className: "action" }, text),
-			]);
+			return createElement(
+				"div",
+				{ className: "scrippet-fountain-html" },
+				children,
+			);
 		},
 	};
 }
