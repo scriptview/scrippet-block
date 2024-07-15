@@ -1,3 +1,5 @@
+import React, { createElement } from "react";
+
 import {
 	ContextLine,
 	JouvenceNotification,
@@ -5,6 +7,10 @@ import {
 	NotificationCharacterOption,
 } from "jouvence/types";
 import { parseFountain } from "./jouvence/parse";
+
+// references:
+// https://react.dev/reference/react/createElement
+// https://react.dev/reference/react/createElement#creating-an-element-without-jsx
 
 export function mkProcessing() {
 	const lines: string[] = [];
@@ -108,16 +114,18 @@ export function mkProcessing() {
 		getNotification(): JouvenceNotification {
 			return jouvenceNotification;
 		},
-		getResult() {
-			return lines;
+		getResult(text: string): React.ReactElement {
+			return createElement("div", { className: "scrippet-fountain-html" }, [
+				createElement("p", { className: "action" }, text),
+			]);
 		},
 	};
 }
 
-export function processFountain(text: string): string {
+export function processFountain(text: string): React.ReactElement {
 	const processing = mkProcessing();
 	parseFountain(text, processing.getNotification());
-	console.log(processing.getResult());
+	const element = processing.getResult(text);
 	const bolded = text.replace(/\b\w{6,}\b/g, "<strong>$&</strong>");
-	return `<p class="action">${bolded}</p>`;
+	return element;
 }
