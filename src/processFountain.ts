@@ -187,7 +187,6 @@ export function mkProcessing() {
 }
 
 export function processFountain(text: string): React.ReactElement {
-	console.log("@@ processFountain", text);
 	const processing = mkProcessing();
 	parseFountain(text || "", processing.getNotification());
 	const element = processing.getResult();
