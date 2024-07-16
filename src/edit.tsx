@@ -57,6 +57,7 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 						<PlainText onChange={onChangeContent} value={fountainSource} />
 					</pre>
 					<hr />
+					<p className="mermaid-preview">Preview: </p>
 				</>
 			)}
 			{processFountain(fountainSource)}

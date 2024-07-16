@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "scriptview/scrippet-block",
-	"version": "0.1.1",
+	"version": "1.0.0",
 	"title": "scrippet",
 	"category": "widgets",
 	"icon": "video-alt",

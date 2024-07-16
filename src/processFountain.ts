@@ -176,7 +176,7 @@ export function mkProcessing() {
 		getNotification(): JouvenceNotification {
 			return jouvenceNotification;
 		},
-		getResult(text: string): React.ReactElement {
+		getResult(): React.ReactElement {
 			return createElement(
 				"div",
 				{ className: "scrippet-fountain-html" },
@@ -187,9 +187,9 @@ export function mkProcessing() {
 }
 
 export function processFountain(text: string): React.ReactElement {
+	console.log("@@ processFountain", text);
 	const processing = mkProcessing();
-	parseFountain(text, processing.getNotification());
-	const element = processing.getResult(text);
-	const bolded = text.replace(/\b\w{6,}\b/g, "<strong>$&</strong>");
+	parseFountain(text || "", processing.getNotification());
+	const element = processing.getResult();
 	return element;
 }

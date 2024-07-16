@@ -1,55 +1,62 @@
 === Scrippet Block ===
-Contributors:      Pierre Carion
-Tags:              block
+Contributors:      pcarion007
+Tags:              markdown, writing
 Tested up to:      6.1
-Stable tag:        0.1.0
+Stable tag:        1.0.0
 License:           GPLv3
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
-Scrippet-block is a WordPress plugin that adds a block to the Gutenberg editor to display Fountain formatted screenplay snippets.
+This plugin adds a block to the Gutenberg editor to render HTML Fountain-formatted screenplay snippets.
 
 == Description ==
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
+**Scrippet Block** enables users to write screenplay content using Markdown in Fountain syntax directly within the WordPress block editor.
+This plugin automatically converts the entered text into a properly formatted HTML page, adhering to industry standards for screenplays.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+Features:
+- **Fountain Syntax Support:** Write your screenplay using the intuitive Fountain markup language.
+- **Real-Time Preview:** See the formatted screenplay as you type.
+- **Easy Integration:** Add the Scrippet block to any post or page.
 
-== Installation ==
-
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload the plugin files to the `/wp-content/plugins/scrippet-block` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-
+The Fountain Markdown language was designed by [John August](https://johnaugust.com/).
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= What is Fountain syntax? =
 
-An answer to that question.
+Fountain is a simple markup language designed for writing screenplays in plain text.
+It allows writers to create properly formatted screenplays without the need for specialized software.
+Scrippet leverages this syntax to make screenplay formatting easy and accessible within WordPress.
 
-= What about foo bar? =
+For more information on the Fountain format, please visit [fountain.io](https://fountain.io/).
 
-Answer to foo bar dilemma.
+
+= How do I add a Scrippet block to my post or page? =
+
+To add a Scrippet block, open the WordPress block editor and click on the "+" icon to add a new block.
+Search for "Scrippet" in the block library, and click on it to insert it into your post or page.
+You can then start writing your screenplay using Fountain syntax within the block, and the preview will render in real-time beneath the editor.
+
+
+= How do I get support if I encounter an issue with the plugin? =
+
+For support, you can visit the plugin's support page on the WordPress plugin repository or contact us directly at [pcarion@outlook.com](mailto:pcarion@outlook.com). We are here to help you with any issues or questions you may have.
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Automatically formatted screenplay result.
+2. The Scrippet block in the WordPress block editor.
+3. Writing screenplay text in Fountain syntax, with preview rendered.
+4. How to add a scrippet block.
 
 == Changelog ==
 
-= 0.1.1 =
-* Release
+= 1.0.1 =
+* Initial release
+* All Fountain syntax elements are processed except for lyrics
+* In that version, dual dialogues are rendered as regular dialogues. Next version will address that.
+* These Fountain elements are parsed but not rendered as they are not supposed to appear in the formatted output:
+  * title page
+	* page break
+	* sections and synopses
 
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
