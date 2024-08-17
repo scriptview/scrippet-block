@@ -1,10 +1,10 @@
 === Scrippet Block ===
-Contributors:      pcarion007
-Tags:              markdown, writing
-Tested up to:      6.1
-Stable tag:        1.0.0
-License:           GPLv3
-License URI:       https://www.gnu.org/licenses/gpl-3.0.html
+Contributors: pcarion007
+Tags: markdown, writing
+Tested up to: 6.6
+Stable tag: 1.0.1
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 This plugin adds a block to the Gutenberg editor to render HTML Fountain-formatted screenplay snippets.
 
@@ -60,3 +60,17 @@ For support, you can visit the plugin's support page on the WordPress plugin rep
 	* page break
 	* sections and synopses
 
+
+= Contribute =
+
+We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
+
+* Reporting a bug
+* Discussing the current state, features, improvements
+* Submitting a fix 💯 or a new feature 🎉
+
+We use GitHub to host code, to track issues and feature requests, as well as accept pull requests.
+By contributing, you agree that your contributions will be licensed under its GPLv3 License.
+
+* [GitHub Repository](https://github.com/scriptview/scrippet-block)
+* [Instructions about how to contribute](https://github.com/scriptview/scrippet-block/blob/main/contributing.md)
