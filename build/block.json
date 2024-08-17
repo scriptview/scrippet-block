@@ -1,26 +1,26 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "scriptview/scrippet-block",
-	"version": "1.0.1",
-	"title": "scrippet",
-	"category": "widgets",
-	"icon": "video-alt",
-	"description": "Convert fountain formatted text to screenplay format.",
-	"example": {},
-	"supports": {
-		"html": false
-	},
-	"attributes": {
-		"fountainSource": {
-			"type": "string",
-			"source": "text",
-			"selector": "pre.scrippet-fountain-source"
-		}
-	},
-	"textdomain": "scrippet-block",
-	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css",
-	"viewScript": "file:./view.js"
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "scriptview/scrippet-block",
+  "version": "1.0.1",
+  "title": "scrippet",
+  "category": "widgets",
+  "icon": "video-alt",
+  "description": "Convert fountain formatted text to screenplay format.",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "fountainSource": {
+      "type": "string",
+      "source": "text",
+      "selector": "pre.scrippet-fountain-source"
+    }
+  },
+  "textdomain": "scrippet-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
 }

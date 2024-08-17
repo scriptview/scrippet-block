@@ -38,233 +38,233 @@
 import { Context, BlockContent, ContextLine, BlockContext } from "./types";
 
 export function parseBlock(
-  context: BlockContext,
-  line: string,
-  lineno: number
+	context: BlockContext,
+	line: string,
+	lineno: number,
 ): number {
-  // we look for comments /* */ and notes [[ ]]
-  var state = context.state;
-  var previousIsBackslash = false;
-  var nestedDepth = context.nestedDepth ? context.nestedDepth : 0;
-  var currentBlock: BlockContent | undefined;
-  var ixFirstCharState0 = -1;
-  var ixFirstCharBlock = -1;
+	// we look for comments /* */ and notes [[ ]]
+	var state = context.state;
+	var previousIsBackslash = false;
+	var nestedDepth = context.nestedDepth ? context.nestedDepth : 0;
+	var currentBlock: BlockContent | undefined;
+	var ixFirstCharState0 = -1;
+	var ixFirstCharBlock = -1;
 
-  if (state === 0) {
-    // no pending block
-    currentBlock = undefined;
-    context.blocks = [];
-    context.lineno = lineno;
-  } else {
-    // we consider the last block inserted
-    currentBlock = context.blocks[context.blocks.length - 1];
-    ixFirstCharBlock = 0;
-  }
+	if (state === 0) {
+		// no pending block
+		currentBlock = undefined;
+		context.blocks = [];
+		context.lineno = lineno;
+	} else {
+		// we consider the last block inserted
+		currentBlock = context.blocks[context.blocks.length - 1];
+		ixFirstCharBlock = 0;
+	}
 
-  for (let i = 0; i < line.length; i++) {
-    if (previousIsBackslash) {
-      previousIsBackslash = false;
-      continue;
-    }
-    var c = line.charAt(i);
-    if (state === 0) {
-      // we 'mark' the column of the first character in state 0
-      if (ixFirstCharState0 < 0) {
-        ixFirstCharState0 = i;
-      }
-      if (c === "/") {
-        state = 1;
-      } else if (c === "[") {
-        state = 2;
-      }
-    } else if (state === 1) {
-      if (c === "*") {
-        currentBlock = {
-          nature: "comment",
-          before: line.substring(ixFirstCharState0, i - 1),
-          start: {
-            lineno: lineno,
-            column: i - 1,
-          },
-          //   end: {
-          //     lineno: -1,
-          //     column: -1,
-          //   },
-          content: [],
-        };
-        context.blocks.push(currentBlock);
-        ixFirstCharState0 = -1;
-        ixFirstCharBlock = i + 1;
+	for (let i = 0; i < line.length; i++) {
+		if (previousIsBackslash) {
+			previousIsBackslash = false;
+			continue;
+		}
+		var c = line.charAt(i);
+		if (state === 0) {
+			// we 'mark' the column of the first character in state 0
+			if (ixFirstCharState0 < 0) {
+				ixFirstCharState0 = i;
+			}
+			if (c === "/") {
+				state = 1;
+			} else if (c === "[") {
+				state = 2;
+			}
+		} else if (state === 1) {
+			if (c === "*") {
+				currentBlock = {
+					nature: "comment",
+					before: line.substring(ixFirstCharState0, i - 1),
+					start: {
+						lineno: lineno,
+						column: i - 1,
+					},
+					//   end: {
+					//     lineno: -1,
+					//     column: -1,
+					//   },
+					content: [],
+				};
+				context.blocks.push(currentBlock);
+				ixFirstCharState0 = -1;
+				ixFirstCharBlock = i + 1;
 
-        state = 100;
-      } else if (c === "[") {
-        state = 2;
-      } else {
-        state = 0;
-      }
-    } else if (state === 2) {
-      if (c === "[") {
-        currentBlock = {
-          nature: "note",
-          before: line.substring(ixFirstCharState0, i - 1),
-          start: {
-            lineno: lineno,
-            column: i - 1,
-          },
-          //   end: {
-          //     lineno: -1,
-          //     column: -1,
-          //   },
-          content: [],
-        };
-        context.blocks.push(currentBlock);
-        ixFirstCharState0 = -1;
-        ixFirstCharBlock = i + 1;
+				state = 100;
+			} else if (c === "[") {
+				state = 2;
+			} else {
+				state = 0;
+			}
+		} else if (state === 2) {
+			if (c === "[") {
+				currentBlock = {
+					nature: "note",
+					before: line.substring(ixFirstCharState0, i - 1),
+					start: {
+						lineno: lineno,
+						column: i - 1,
+					},
+					//   end: {
+					//     lineno: -1,
+					//     column: -1,
+					//   },
+					content: [],
+				};
+				context.blocks.push(currentBlock);
+				ixFirstCharState0 = -1;
+				ixFirstCharBlock = i + 1;
 
-        state = 200;
-      } else if (c === "/") {
-        state = 1;
-      } else {
-        state = 0;
-      }
-    } else if (state === 100) {
-      if (c === "*") {
-        state = 101;
-      } else if (c == "/") {
-        state = 105;
-      }
-    } else if (state === 101) {
-      if (c === "/") {
-        // we have a full comment!
-        if (nestedDepth === 0) {
-          if (!currentBlock) {
-            throw new Error(`internal error (1)`);
-          }
-          currentBlock.end = {
-            lineno: lineno,
-            column: i,
-          };
-          currentBlock.content.push(
-            line.substring(ixFirstCharBlock, i - 1).trim()
-          );
-          state = 0;
-        } else {
-          nestedDepth--;
-          state = 100;
-        }
-      } else {
-        state = 100;
-      }
-    } else if (state === 105) {
-      if (c === "*") {
-        // we have an embedded comment
-        nestedDepth++;
-      } else {
-        state = 100;
-      }
-    } else if (state === 200) {
-      if (c === "]") {
-        state = 201;
-      } else if (c === "[") {
-        state = 205;
-      }
-    } else if (state === 201) {
-      if (c === "]") {
-        if (!currentBlock) {
-          throw new Error(`internal error (2)`);
-        }
-        // we have a full note!
-        if (nestedDepth === 0) {
-          currentBlock.end = {
-            lineno: lineno,
-            column: i,
-          };
-          currentBlock.content.push(
-            line.substring(ixFirstCharBlock, i - 1).trim()
-          );
-          state = 0;
-        } else {
-          nestedDepth--;
-          state = 200;
-        }
-      } else {
-        state = 200;
-      }
-    } else if (state === 205) {
-      if (c === "[") {
-        // we have an embedded note
-        nestedDepth++;
-      } else {
-        state = 200;
-      }
-    }
+				state = 200;
+			} else if (c === "/") {
+				state = 1;
+			} else {
+				state = 0;
+			}
+		} else if (state === 100) {
+			if (c === "*") {
+				state = 101;
+			} else if (c == "/") {
+				state = 105;
+			}
+		} else if (state === 101) {
+			if (c === "/") {
+				// we have a full comment!
+				if (nestedDepth === 0) {
+					if (!currentBlock) {
+						throw new Error(`internal error (1)`);
+					}
+					currentBlock.end = {
+						lineno: lineno,
+						column: i,
+					};
+					currentBlock.content.push(
+						line.substring(ixFirstCharBlock, i - 1).trim(),
+					);
+					state = 0;
+				} else {
+					nestedDepth--;
+					state = 100;
+				}
+			} else {
+				state = 100;
+			}
+		} else if (state === 105) {
+			if (c === "*") {
+				// we have an embedded comment
+				nestedDepth++;
+			} else {
+				state = 100;
+			}
+		} else if (state === 200) {
+			if (c === "]") {
+				state = 201;
+			} else if (c === "[") {
+				state = 205;
+			}
+		} else if (state === 201) {
+			if (c === "]") {
+				if (!currentBlock) {
+					throw new Error(`internal error (2)`);
+				}
+				// we have a full note!
+				if (nestedDepth === 0) {
+					currentBlock.end = {
+						lineno: lineno,
+						column: i,
+					};
+					currentBlock.content.push(
+						line.substring(ixFirstCharBlock, i - 1).trim(),
+					);
+					state = 0;
+				} else {
+					nestedDepth--;
+					state = 200;
+				}
+			} else {
+				state = 200;
+			}
+		} else if (state === 205) {
+			if (c === "[") {
+				// we have an embedded note
+				nestedDepth++;
+			} else {
+				state = 200;
+			}
+		}
 
-    previousIsBackslash = c == "\\";
-  }
+		previousIsBackslash = c == "\\";
+	}
 
-  // we need to reset to state 0, any state which were
-  // an attempt to find the begining of a block
-  if (state == 1 || state == 2) {
-    state = 0;
-  }
+	// we need to reset to state 0, any state which were
+	// an attempt to find the begining of a block
+	if (state == 1 || state == 2) {
+		state = 0;
+	}
 
-  if (state === 0) {
-    if (context.blocks.length === 0) {
-      // usual situation: no comment nor notes in the line
-      context.line = line;
-      context.lastChunk = "";
-    } else {
-      context.line = "";
-      // we ned to concatenate all the before strings of the blocks
-      context.blocks.forEach(function (block, index, array) {
-        context.line += block.before;
-      });
-      if (ixFirstCharState0 >= 0) {
-        context.lastChunk = line.substring(ixFirstCharState0);
-        context.line += context.lastChunk;
-      }
-      context.line = context.line.trim();
-    }
-    context.nestedDepth = 0;
-  } else {
-    context.nestedDepth = nestedDepth;
+	if (state === 0) {
+		if (context.blocks.length === 0) {
+			// usual situation: no comment nor notes in the line
+			context.line = line;
+			context.lastChunk = "";
+		} else {
+			context.line = "";
+			// we ned to concatenate all the before strings of the blocks
+			context.blocks.forEach(function (block, index, array) {
+				context.line += block.before;
+			});
+			if (ixFirstCharState0 >= 0) {
+				context.lastChunk = line.substring(ixFirstCharState0);
+				context.line += context.lastChunk;
+			}
+			context.line = context.line.trim();
+		}
+		context.nestedDepth = 0;
+	} else {
+		context.nestedDepth = nestedDepth;
 
-    // we normalize the states associated to block parsing
-    // as the processing don't carry over the following lines
-    if (state >= 100 && state < 200) {
-      // we are in a comment
-      state = 100;
-      if (!currentBlock) {
-        throw new Error(`internal error (3)`);
-      }
-      currentBlock.content.push(line.substring(ixFirstCharBlock).trim());
-    }
-    if (state >= 200 && state < 300) {
-      if (!currentBlock) {
-        throw new Error(`internal error (4)`);
-      }
-      // we are in a note
-      state = 200;
-      currentBlock.content.push(line.substring(ixFirstCharBlock).trim());
-    }
-  }
-  context.state = state;
+		// we normalize the states associated to block parsing
+		// as the processing don't carry over the following lines
+		if (state >= 100 && state < 200) {
+			// we are in a comment
+			state = 100;
+			if (!currentBlock) {
+				throw new Error(`internal error (3)`);
+			}
+			currentBlock.content.push(line.substring(ixFirstCharBlock).trim());
+		}
+		if (state >= 200 && state < 300) {
+			if (!currentBlock) {
+				throw new Error(`internal error (4)`);
+			}
+			// we are in a note
+			state = 200;
+			currentBlock.content.push(line.substring(ixFirstCharBlock).trim());
+		}
+	}
+	context.state = state;
 
-  return state;
+	return state;
 }
 
 export function extractBlocks(blocks: BlockContent[]): ContextLine[] {
-  var result: ContextLine[] = [];
-  var position = 0;
+	var result: ContextLine[] = [];
+	var position = 0;
 
-  for (var i = 0; i < blocks.length; i++) {
-    var block = blocks[i];
-    position += block.before.length;
-    result.push({
-      nature: block.nature,
-      position: position,
-      content: block.content,
-    });
-  }
-  return result;
+	for (var i = 0; i < blocks.length; i++) {
+		var block = blocks[i];
+		position += block.before.length;
+		result.push({
+			nature: block.nature,
+			position: position,
+			content: block.content,
+		});
+	}
+	return result;
 }
