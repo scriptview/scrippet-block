@@ -140,7 +140,11 @@ export function mkProcessing() {
 		},
 		character: function (text: string, option: NotificationCharacterOption) {
 			addSX("character", text, option);
-			children.push(createElement("p", { className: "character" }, text));
+			if (option.extension) {
+				children.push(createElement("p", { className: "character" }, `${text} (${option.extension})`));
+			} else {
+				children.push(createElement("p", { className: "character" }, text));
+			}
 		},
 		parenthetical: function (text: string) {
 			addS("parenthetical", text);
